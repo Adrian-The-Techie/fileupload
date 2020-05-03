@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>File Upload</title>
+    </head>
+    <body>
+        <form id="upload-form">
+            <input type="text" name="name"><br>
+            <input type="file" name="thumbnail"><br>
+            <input type="file" name="mix"><br>
+            <button type="submit" name="submit">UPLOAD MIX</button>
+        </form>
+        <script>
+        document.getElementById('upload-form').addEventListener('submit', (event)=>{
+        event.preventDefault();
+        // /console.log("btn clicked");
+           
+        let formData=document.getElementById('upload-form');
+        let xhr= new XMLHttpRequest();
+        xhr.open("POST","scripts/upload.php", true);
+        xhr.onload = function(){
+            let response = JSON.parse(this.responseText);
+            window.alert(response.response);
+        }
+        xhr.send(new FormData(formData));
+    });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixes</title>
+</head>
+<body >
+    <div class="mixes-container">
+        <div id="mix"class="mix">
+
+        </div>
+    </div>
+    <button id="body">LOAD</button>
+    <script>
+        document.getElementById('body').addEventListener("click", loadMixes);
+        function loadMixes(){
+        const xhr= new XMLHttpRequest();
+        xhr.open("POST", "scripts/getMixes.php", true);
+        xhr.onload = ()=>{
+            const response = JSON.parse(xhr.responseText);
+            let i=0;
+            response.mixes.forEach(element => {
+                let mixDiv=document.getElementById('mix');
+                let a=document.createElement("a");
+                a.href=element.mixFileName;
+                a.download=element.mixTitleName;
+                mixDiv.appendChild(a);
+            });
+            
+        }
+        xhr.send();
+        }
+    </script>
+</body>
+</html>
