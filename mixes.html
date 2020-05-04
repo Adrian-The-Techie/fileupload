@@ -3,33 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/mixes.css">
     <title>Mixes</title>
 </head>
-<body >
+<body onload="loadMixes()">
     <div class="mixes-container">
-        <div id="mix"class="mix">
+        <div id="mix" class="mix">
 
         </div>
     </div>
-    <button id="body">LOAD</button>
     <script>
-        document.getElementById('body').addEventListener("click", loadMixes);
         function loadMixes(){
-        const xhr= new XMLHttpRequest();
-        xhr.open("POST", "scripts/getMixes.php", true);
-        xhr.onload = ()=>{
-            const response = JSON.parse(xhr.responseText);
-            let i=0;
-            response.mixes.forEach(element => {
-                let mixDiv=document.getElementById('mix');
-                let a=document.createElement("a");
-                a.href=element.mixFileName;
-                a.download=element.mixTitleName;
-                mixDiv.appendChild(a);
-            });
-            
-        }
-        xhr.send();
+            const xhr= new XMLHttpRequest();
+            xhr.open("POST", "getMixes.php", true);
+            xhr.onload = ()=>{
+                const response = JSON.parse(xhr.responseText);
+                let i=0;
+                response.mixes.forEach(element => {
+                    let mixDiv=document.getElementById('mix');
+                    let specificMixDiv=document.createElement("div"); //create specific mix div
+                    let thumbnailsizeController= document.createElement("div") //create thumbnail size controller
+                    let thumbnail=document.createElement("img");//create thumbnail
+                    let a=document.createElement("a"); //create mix link
+                    let mixNameP=document.createElement("p"); //create mix name paragraph
+                    let mixName=document.createTextNode(element.mixTitleName); // create mix name
+
+                    //add specific mix class to specific mix div
+                    specificMixDiv.classList.add("specific-mix");
+
+                    //append image to thumbnail size controller
+                    thumbnailsizeController.appendChild(thumbnail);
+                    thumbnailsizeController.classList.add("thumbnail-size-controller");
+                    //create thumbnail attributes
+                    thumbnail.src=element.thumbnailFileName;
+                    thumbnail.alt=element.mixTitleName;
+
+                    //append mix name to p tag
+                    mixNameP.innerHTML=element.mixTitleName;
+                    
+                    //create mix link attributes
+                    a.href=element.mixFileName;
+                    a.download=element.mixTitleName;
+                    a.appendChild(mixName); //append mix name to a tag
+                    //append mix thumbnail, mix name and mix link
+                    specificMixDiv.appendChild(thumbnailsizeController);
+                    specificMixDiv.appendChild(mixNameP);
+                    specificMixDiv.appendChild(a);
+                    //append specific mix div to mix-container
+                    mixDiv.appendChild(specificMixDiv);
+
+                    //at smartphones, create a div for mix name and mix link
+                    if(window.matchMedia("max-width:600px")){
+                        let mixDetailsDiv=document.createElement("div");
+                        mixDetailsDiv.appendChild(mixNameP);
+                        mixDetailsDiv.appendChild(a);
+                        mixDetailsDiv.classList.add("mix-details")
+                        specificMixDiv.appendChild(mixDetailsDiv)
+                    }
+                    
+                }
+                );
+                
+            }
+            xhr.send();
         }
     </script>
 </body>

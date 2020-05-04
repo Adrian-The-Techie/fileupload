@@ -1,0 +1,39 @@
+.mix{
+    display: flex;
+    flex-flow: row wrap;
+}
+.specific-mix{
+    margin:5px;
+    width: 15%;
+    text-align: center;
+    flex-basis: 22%;
+    flex-grow: 2;
+    flex-shrink: 2;
+}
+.thumbnail-size-controller{
+    width: 60%;
+    margin: 0 auto;
+}
+.thumbnail-size-controller img{
+    max-width: 100%;
+}
+@media screen and (max-width:600px){
+    .mix{
+        flex-flow: column nowrap;
+    }
+    .specific-mix{
+        width: 100%;
+        display: flex;
+        background-color: gray;
+    }
+    .thumbnail-size-controller{
+        width: 30%;
+        margin: auto 0;
+    }
+    /* .thumbnail-size-controller img{
+        border-radius: 20%;
+    } */
+    .mix-details{
+        width: 100%;
+    }
+}

@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="style.css">
         <title>File Upload</title>
     </head>
     <body>
         <form id="upload-form">
-            <input type="text" name="name"><br>
+            <input type="text" name="name" placeholder="Mix name"><br>
+
+            <p>Thumbnail</p>
             <input type="file" name="thumbnail"><br>
-            <input type="file" name="mix"><br>
+
+
+            <p>Mix File</p>
+            <input type="file" name="mix"><br><br>
             <button type="submit" name="submit">UPLOAD MIX</button>
         </form>
         <script>
@@ -17,10 +23,11 @@
            
         let formData=document.getElementById('upload-form');
         let xhr= new XMLHttpRequest();
-        xhr.open("POST","scripts/upload.php", true);
+        xhr.open("POST","upload.php", true);
         xhr.onload = function(){
             let response = JSON.parse(this.responseText);
             window.alert(response.response);
+            window.location.assign("mixes.html");
         }
         xhr.send(new FormData(formData));
     });

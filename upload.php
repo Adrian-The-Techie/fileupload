@@ -8,8 +8,8 @@ include ("config.php");
         $getMixFileExt=explode(".", $mixName);
         $mixFileExt = end($getMixFileExt);
         $newMixFileName = uniqid("", true).".".$mixFileExt;
-            $mixFileDestination="../mixes/mixes/".$newMixFileName;
-            $mixUploadResult=move_uploaded_file($mixTmpName, $mixFileDestination);
+        $mixFileDestination="mixes/mixes/".$newMixFileName;
+        $mixUploadResult=move_uploaded_file($mixTmpName, $mixFileDestination);
     }
     else{
         $message=["response"=>"Error uploading mix file"];
@@ -22,7 +22,7 @@ include ("config.php");
         $getThumbnailFileExt=explode(".", $thumbnailName);
         $thumbnailFileExt = end($getThumbnailFileExt);
         $newThumbnailFileName = uniqid("", true).".".$thumbnailFileExt;
-        $thumbnailFileDestination="../mixes/thumbnails/".$newThumbnailFileName;
+        $thumbnailFileDestination="mixes/thumbnails/".$newThumbnailFileName;
         $thumbnailUploadResult=move_uploaded_file($thumbnailTmpName, $thumbnailFileDestination);
     }
     else{
